@@ -1,0 +1,53 @@
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/lab": "^4.0.0-alpha.56",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "d3": "^6.1.1",
+    "d3-scale": "^3.2.2",
+    "express": "^4.17.1",
+    "fkill": "^7.1.1",
+    "formik": "^2.2.6",
+    "formik-material-ui": "^3.0.1",
+    "install": "^0.13.0",
+    "kill-port": "^1.6.1",
+    "lodash": "^4.17.20",
+    "moment": "^2.29.0",
+    "npm": "^6.14.8",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.3",
+    "simple-statistics": "^7.3.0",
+    "socket.io": "^2.3.0",
+    "styled-components": "^5.2.0",
+    "uuid": "^8.3.0",
+    "vega-statistics": "^1.7.9",
+    "ws": "^7.4.6"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
