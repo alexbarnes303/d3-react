@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-How to use in developement environment:
+How to use in development environment:
 
 Once the project is downloaded and all dependencies installed etc
 
