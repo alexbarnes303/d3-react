@@ -1,28 +1,4 @@
-import _ from 'lodash';
-
-// constants
-export const LINE_DATA_LENGTH = 30;
-export const SAMPLE_SIZE = 5;
-export const MAX_VALUE = 240;
-export const MIN_VALUE = 20;
-export const MAX_LENGTH = 100;
-export const DURATION = 500;
-export const STATS = ['mean','min','max'];
-export const WEB_SOCKET_URL = 'ws://localhost:8080';
-
-// data structures
-export const FILTERS = {
-  district: { name: 'district', label: 'District' },
-  facility: { name:'facility', label: 'Facility' },
-  wards: { name: 'wards', label: 'Wards' }
-}
-
-export const INITIAL_VALUES = {
-  [FILTERS.district.name]: 'all',
-  [FILTERS.facility.name]: 'all',
-  [FILTERS.wards.name]: 'all',
-}
-
+const _ = require('lodash');
 
 // utility functions
 const findMaxValue = (arr) => _.max(arr.map((e) => e.max))
@@ -32,8 +8,23 @@ const filterElemnts = (elements, filter, value) => {
   : elements.filter((d)=> d[filter] === value)
 }
 
+// constants
+const MAX_LENGTH = 100;
+const DURATION = 500;
+const SAMPLE_SIZE = 5;
+const MAX_VALUE = 240;
+const MIN_VALUE = 20;
+const PORT = 8080;
+
+// data structures
+const FILTERS = {
+  district: { name: 'district', label: 'District' },
+  facility: { name:'facility', label: 'Facility' },
+  wards: { name: 'wards', label: 'Wards' }
+}
+
 // eslint-disable-next-line no-sparse-arrays
-export const WARDS = [
+const WARDS = [
   {  
     facility:'facility1',
     value: 'all',
@@ -148,17 +139,17 @@ export const WARDS = [
   },
   { 
     facility:'facility4',
-    value: 'wardB1',
+    value: 'wardB',
     name: FILTERS.wards.name,
-    label: 'Ward B1',
+    label: 'Ward B',
     max: 220,
     min: 30,
   },
   {  
     facility:'facility4',
-    value: 'wardB2',
+    value: 'wardB',
     name: FILTERS.wards.name,
-    label: 'Ward B2',
+    label: 'Ward B',
     max: 220,
     min: 20,
   },
@@ -324,7 +315,7 @@ export const WARDS = [
   },
 ];
 
-export const FACILITIES = [
+const FACILITIES = [
   { 
     district: 'district1',
     value: 'all',
@@ -423,7 +414,7 @@ export const FACILITIES = [
   }
 ];
 
-export const DISTRICTS = [
+const DISTRICTS = [
   { 
     group: 'fields',
     value: 'all',
@@ -458,7 +449,7 @@ export const DISTRICTS = [
   }
 ];
 
-export const OPTIONS = [
+const OPTIONS = [
   { 
     name: FILTERS.district.name,
     label: FILTERS.district.label,
@@ -476,4 +467,14 @@ export const OPTIONS = [
   }
 ];
 
-
+// exported constants
+module.exports = {
+  OPTIONS,
+  FILTERS,
+  MAX_LENGTH,
+  DURATION,
+  SAMPLE_SIZE,
+  MIN_VALUE,
+  MAX_VALUE,
+  PORT,
+};

@@ -5,8 +5,6 @@ import styled from 'styled-components';
 import './App.css';
 import { realTimeLineChart } from './lineChart';
 import FilterPanel from './FilterPanel';
-import _ from 'lodash';
-// import { w3cwebsocket as WebSocket } from "websocket";
 import { 
   STATS,
   FILTERS,
@@ -14,9 +12,9 @@ import {
   DURATION,
   INITIAL_VALUES,
   OPTIONS,
+  WEB_SOCKET_URL,
 } from './constants';
 
-const URL = 'ws://localhost:8080';
 
 // styled components
 
@@ -45,7 +43,6 @@ const Title = styled.header`
 `;
  
 const ChartComponent = () => { 
-  const dataQueue = useRef();
   const lineData = useRef();
   const [selection, setSelection] = useState(INITIAL_VALUES);
   const interval= useRef(null);
@@ -57,10 +54,8 @@ const ChartComponent = () => {
   
   const updateChart = () => {
     if (connected.current) {
-
       chart.current = d3.select(chartRef.current);   
       const formattedData = formatData(lineData.current, STATS);
-      console.log('renders formatted', formattedData)
       chart.current.datum(formattedData).call(drawChart); 
     }
   };
@@ -83,7 +78,7 @@ const ChartComponent = () => {
 
   useEffect(() => {
     if (!webSocket.current) {
-      webSocket.current = new WebSocket(URL);
+      webSocket.current = new WebSocket(WEB_SOCKET_URL);
     }
 
     webSocket.current.onopen = () => {
@@ -91,15 +86,14 @@ const ChartComponent = () => {
       connected.current = true;
     }
 
-    webSocket.current.onmessage = (evt) => {
-      let formattedData;  
+    webSocket.current.onmessage = (evt) => { 
       const data = JSON.parse(evt.data);
       switch(data.type) {
         case 'seed': 
           lineData.current = data.payload;
           clearInterval(interval.current);
           chart.current = d3.select(chartRef.current);
-          formattedData = formatData(lineData.current, STATS);
+          const formattedData = formatData(lineData.current, STATS);
           chart.current.datum(formattedData).call(drawChart);   
           interval.current = setInterval(updateChart, DURATION); 
           break;
@@ -109,7 +103,6 @@ const ChartComponent = () => {
           if (newLineData.length > LINE_DATA_LENGTH) {
             newLineData.shift();  
           } 
-          console.log('renders line data', newLineData)
           lineData.current = newLineData;     
         break;
       default:
@@ -121,17 +114,13 @@ const ChartComponent = () => {
       console.log('websockets error', evt.message);  
       connected.current = false;
       webSocket.current.close();
-      if (evt.code !== 1000) {
-        webSocket.current = new WebSocket(URL);
-        console.log('trying to reconnect to websocket'); 
-      }
     }
 
     webSocket.current.onclose = (evt) => {
       connected.current = false;
       console.log('websocket has closed', evt.message); 
       if (evt.code !== 1000) {
-        webSocket.current = new WebSocket(URL);
+        webSocket.current = new WebSocket(WEB_SOCKET_URL);
         console.log('trying to reconnect to websocket'); 
       }
     };

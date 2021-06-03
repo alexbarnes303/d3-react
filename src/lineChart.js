@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 import { DURATION } from './constants';
+
 export const realTimeLineChart = () => {
   let margin = {top: 30, right: 10, bottom: 30, left: 25};
   let width = 1200;
@@ -95,7 +96,6 @@ export const realTimeLineChart = () => {
       function tick() {
         d3.select(this)
           .attr("d", function(d) { 
-            console.log('linechart values', d.values)
             return line(d.values); 
           })
           .attr("transform", null);
@@ -110,6 +110,7 @@ export const realTimeLineChart = () => {
   }
   
   let duration = DURATION;
+
   drawChart.margin = function(_) {
     if (!arguments.length) return margin;
     margin = _;
